@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -24,7 +25,7 @@ func main() {
 	mux.HandleFunc("/", rootHandler)
 	mux.HandleFunc("/healthz", healthz)
 	mux.HandleFunc("/setheader", respHandler)
-	err := http.ListenAndServe(":80", mux)
+	err := http.ListenAndServe(":81", mux)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -55,12 +56,13 @@ func respHandler(w http.ResponseWriter, r *http.Request) {
 		IPAddress = strings.Split(r.RemoteAddr, ":")[0]
 	}
 	//io.WriteString(w, IPAddress+"\n")
-	fmt.Println("IPAddress : " + IPAddress + ";\n")
+	fmt.Println("IPAddress : " + IPAddress)
 
-	//RespCode := http.StatusCode
+	RespCode := http.StatusOK
+	//fmt.Println(RespCode)
 	//RespCode := http.StatusText()
 	//RespCode := w.Header().Get("Status")
-	//fmt.Println("Response Code : " + string(RespCode))
+	fmt.Println("Response Code : " + strconv.Itoa(RespCode))
 
 }
 
